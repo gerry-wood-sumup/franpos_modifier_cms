@@ -11,6 +11,9 @@ franpos_modifier_cms/
 ├── images/
 │   └── modifiers/
 │       └── toppings/
+├── kiosk-carousel/
+│   ├── global/
+│   └── <CID>/          (6-digit numeric Company ID, e.g. 206100)
 ├── documents/
 ├── sounds/
 ├── videos/
@@ -28,6 +31,36 @@ Organized by the modifier/menu category they belong to:
 
 **Accepted formats:** `.png`, `.jpg`, `.webp`
 **Recommended specs:** PNG with transparency, square or consistent aspect ratio per category
+
+### `kiosk-carousel/`
+Promotional images displayed in the kiosk carousel/attract loop.
+
+Organized by Company ID (CID) for merchant-specific overrides, with a `global/` fallback:
+
+| Path | Browse | Description |
+|------|--------|-------------|
+| `kiosk-carousel/global/` | [View assets](https://gerry-wood-sumup.github.io/franpos_auxiliary_dam/kiosk-carousel/global/) | Default carousel images used by any kiosk without a CID-specific folder |
+| `kiosk-carousel/<CID>/` | — | Carousel images for a specific merchant (6-digit numeric CID, e.g. `206100`) |
+
+**Accepted formats:** `.png`, `.jpg`, `.webp`
+
+**CID resolution logic (kiosk):** The kiosk requests `kiosk-carousel/<CID>/index.json`. If that path does not exist, it falls back to `kiosk-carousel/global/index.json`.
+
+**`index.json` format** (auto-generated alongside `index.html` in each leaf folder):
+```json
+{
+  "folder": "206100",
+  "count": 1,
+  "images": [
+    { "name": "Levitea Promo.jpg", "url": "Levitea%20Promo.jpg" }
+  ]
+}
+```
+
+**Adding a new CID:**
+1. Create a folder named with the 6-digit CID under `kiosk-carousel/` (e.g. `kiosk-carousel/206100/`).
+2. Add the desired carousel images to that folder.
+3. Commit and push — `index.html` and `index.json` are generated automatically.
 
 ### `documents/`
 Printable or referenceable documents such as menus, nutrition guides, training materials, or compliance forms.
