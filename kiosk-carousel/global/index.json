@@ -1,0 +1,9 @@
+{
+  "folder": "global",
+  "count": 3,
+  "images": [
+    { "name": "IMAGE 1 - Kiosk - Strawberry Milk with Pearl.jpg", "url": "IMAGE%201%20-%20Kiosk%20-%20Strawberry%20Milk%20with%20Pearl.jpg" },
+    { "name": "IMAGE 2 - Kiosk - QQ Passion Fruit.jpg", "url": "IMAGE%202%20-%20Kiosk%20-%20QQ%20Passion%20Fruit.jpg" },
+    { "name": "Levitea.png", "url": "Levitea.png" }
+  ]
+}
