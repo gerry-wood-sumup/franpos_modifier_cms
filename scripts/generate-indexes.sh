@@ -142,6 +142,46 @@ HTML
 }
 
 # ---------------------------------------------------------------------------
+# Leaf directory (kiosk-carousel only): also generate index.json for kiosk
+# ---------------------------------------------------------------------------
+
+generate_json_index() {
+  local dir="$1"
+  local folder_name
+  folder_name="$(basename "$dir")"
+
+  local images=()
+  while IFS= read -r img; do
+    [[ -n "$img" ]] && images+=("$img")
+  done < <(
+    find "$dir" -maxdepth 1 -type f \
+      \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.webp" -o -iname "*.svg" \) \
+      -exec basename {} \; | sort
+  )
+
+  local count="${#images[@]}"
+  {
+    echo "{"
+    echo "  \"folder\": \"${folder_name}\","
+    echo "  \"count\": ${count},"
+    echo "  \"images\": ["
+    local i=0
+    for img in "${images[@]}"; do
+      local encoded
+      encoded="$(echo "$img" | urlencode)"
+      local comma=""
+      (( i < count - 1 )) && comma=","
+      echo "    { \"name\": \"${img}\", \"url\": \"${encoded}\" }${comma}"
+      (( i++ )) || true
+    done
+    echo "  ]"
+    echo "}"
+  } > "$dir/index.json"
+
+  echo "  Generated: $dir/index.json ($count image(s))"
+}
+
+# ---------------------------------------------------------------------------
 # Parent directory: contains subdirectories
 # ---------------------------------------------------------------------------
 
@@ -244,6 +284,9 @@ while IFS= read -r -d $'\0' root; do
 
     if (( image_count > 0 )); then
       generate_leaf_index "$dir"
+      if [[ "$dir" == *"kiosk-carousel"* ]]; then
+        generate_json_index "$dir"
+      fi
     else
       generate_dir_index "$dir"
     fi
