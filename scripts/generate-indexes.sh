@@ -613,7 +613,16 @@ $(shared_css)
 HTML
 
     for subdir in "${subdirs[@]}"; do
-      cat <<HTML
+      if [[ "$folder_name" == "kiosk-carousel" ]] || [[ "$subdir" == "global" && "$parent_name" == "kiosk-carousel" ]]; then
+        cat <<HTML
+      <tr>
+        <td class="folder"><a href="${subdir}/index.html">${subdir}</a></td>
+        <td></td>
+        <td class="mgmt" style="display:none"></td>
+      </tr>
+HTML
+      else
+        cat <<HTML
       <tr>
         <td class="folder"><a href="${subdir}/index.html">${subdir}</a></td>
         <td></td>
@@ -622,6 +631,7 @@ HTML
         </td>
       </tr>
 HTML
+      fi
     done
 
     cat <<HTML
