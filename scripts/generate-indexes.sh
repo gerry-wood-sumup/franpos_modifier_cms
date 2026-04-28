@@ -608,75 +608,6 @@ HTML
 }
 
 # ---------------------------------------------------------------------------
-# Root index: top-level navigation page linking all media sections
-# ---------------------------------------------------------------------------
-
-generate_root_index() {
-  local media_dirs=()
-  while IFS= read -r -d $'\0' root; do
-    local root_name
-    root_name="$(basename "$root")"
-    is_excluded "$root_name" && continue
-    dir_has_media "$root" && media_dirs+=("$root_name")
-  done < <(find . -maxdepth 1 -mindepth 1 -type d -print0 | sort -z)
-
-  {
-    cat <<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DAM — Home</title>
-  <style>
-$(shared_css)
-  </style>
-</head>
-<body>
-  <div id="auth-bar"></div>
-  <div id="toast-container"></div>
-  <h1>franpos_auxiliary_dam</h1>
-  <p class="count">Digital Asset Management for FranPOS</p>
-  <table>
-    <thead>
-      <tr>
-        <th>Section</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-HTML
-
-    for section in "${media_dirs[@]}"; do
-      cat <<HTML
-      <tr>
-        <td class="folder"><a href="${section}/index.html">${section}</a></td>
-        <td></td>
-      </tr>
-HTML
-    done
-
-    cat <<HTML
-    </tbody>
-  </table>
-  <script>
-    var DAM_OWNER  = '${REPO_OWNER}';
-    var DAM_REPO   = '${REPO_NAME}';
-    var DAM_PATH   = '';
-    var DAM_IS_DIR = true;
-  </script>
-HTML
-    shared_js
-    cat <<HTML
-</body>
-</html>
-HTML
-  } > "./index.html"
-
-  echo "  Generated: ./index.html (${#media_dirs[@]} section(s))"
-}
-
-# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -718,8 +649,5 @@ while IFS= read -r -d $'\0' root; do
   done < <(find "$root" -type d -not -name '.*' -print0 | sort -z)
 
 done < <(find . -maxdepth 1 -mindepth 1 -type d -print0 | sort -z)
-
-echo "Generating root index..."
-generate_root_index
 
 echo "Done."
