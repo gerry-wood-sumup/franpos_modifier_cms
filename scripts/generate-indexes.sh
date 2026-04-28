@@ -323,11 +323,41 @@ shared_js() {
 
     const getSubfolder = function () { return subInput ? subInput.value.trim() : ''; };
 
-    async function handleFiles(files) {
+    let stagedFiles = [];
+
+    function updateDropZone() {
+      if (!dropZone) return;
+      if (stagedFiles.length === 0) {
+        dropZone.innerHTML = dropZone.dataset.emptyText;
+        uploadBtn.textContent = '⬆ Upload Files';
+      } else {
+        const names = stagedFiles.map(function (f) { return f.name; }).join(', ');
+        dropZone.innerHTML =
+          '✅ <strong>' + stagedFiles.length + ' file' + (stagedFiles.length > 1 ? 's' : '') + ' ready:</strong> ' +
+          names +
+          ' — fill in subfolder if needed, then click <strong>Upload</strong>.' +
+          ' <a href="#" id="dam-clear-staged" style="margin-left:0.5rem;color:#cf222e;font-size:0.8rem;">&#10005; clear</a>';
+        uploadBtn.textContent = '⬆ Upload ' + stagedFiles.length + ' file' + (stagedFiles.length > 1 ? 's' : '');
+        document.getElementById('dam-clear-staged').onclick = function (e) {
+          e.preventDefault();
+          stagedFiles = [];
+          fileInput.value = '';
+          updateDropZone();
+        };
+      }
+    }
+
+    function stageFiles(files) {
       if (!files.length) return;
+      stagedFiles = Array.from(files);
+      updateDropZone();
+    }
+
+    async function confirmUpload() {
+      if (!stagedFiles.length) return;
       setDisabled(true);
       try {
-        await uploadFiles(Array.from(files), getSubfolder());
+        await uploadFiles(stagedFiles, getSubfolder());
         await triggerRegen();
         await waitForRegenAndReload();
       } catch (e) {
@@ -336,10 +366,17 @@ shared_js() {
       }
     }
 
-    uploadBtn.onclick = function () { fileInput.click(); };
-    fileInput.onchange = function () { handleFiles(fileInput.files); };
+    uploadBtn.onclick = function () {
+      if (stagedFiles.length) {
+        confirmUpload();
+      } else {
+        fileInput.click();
+      }
+    };
+    fileInput.onchange = function () { stageFiles(fileInput.files); };
 
     if (dropZone) {
+      dropZone.dataset.emptyText = dropZone.innerHTML;
       dropZone.addEventListener('dragover', function (e) {
         e.preventDefault();
         dropZone.classList.add('dragover');
@@ -350,9 +387,12 @@ shared_js() {
       dropZone.addEventListener('drop', function (e) {
         e.preventDefault();
         dropZone.classList.remove('dragover');
-        handleFiles(e.dataTransfer.files);
+        stageFiles(e.dataTransfer.files);
       });
-      dropZone.addEventListener('click', function () { fileInput.click(); });
+      dropZone.addEventListener('click', function (e) {
+        if (e.target.id === 'dam-clear-staged') return;
+        if (!stagedFiles.length) fileInput.click();
+      });
     }
   }
 
