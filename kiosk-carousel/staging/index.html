@@ -57,16 +57,23 @@
       <tr>
         <th>Folder</th>
         <th>Description</th>
+        <th class="mgmt" style="display:none">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="folder"><a href="global/index.html">global</a></td>
         <td></td>
+        <td class="mgmt" style="display:none">
+          <button class="btn btn-danger dam-delete-folder-btn" data-path="kiosk-carousel/staging/global">Delete</button>
+        </td>
       </tr>
       <tr>
         <td class="folder"><a href="25873/index.html">25873</a></td>
         <td></td>
+        <td class="mgmt" style="display:none">
+          <button class="btn btn-danger dam-delete-folder-btn" data-path="kiosk-carousel/staging/25873">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -272,6 +279,23 @@
     });
   }
 
+  async function deleteFolder(folderPath) {
+    const contents = await ghApi('GET', '/contents/' + folderPath);
+    if (!Array.isArray(contents)) throw new Error('Path is not a directory');
+    const subdirs = contents.filter(function (i) { return i.type === 'dir'; });
+    if (subdirs.length > 0) {
+      throw new Error('Folder contains subfolders — delete their contents first');
+    }
+    const files = contents.filter(function (i) { return i.type === 'file'; });
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i];
+      await ghApi('DELETE', '/contents/' + f.path, {
+        message: 'Delete ' + f.name + ' via DAM',
+        sha: f.sha,
+      });
+    }
+  }
+
   // ── Upload wiring ──────────────────────────────────────────────────────────
   function wireUpload() {
     const uploadBtn  = document.getElementById('dam-upload-btn');
@@ -325,6 +349,23 @@
         setDisabled(true);
         try {
           await deleteFile(filePath);
+          await triggerRegen();
+          await waitForRegenAndReload();
+        } catch (e) {
+          toast('Delete failed: ' + e.message, 'error');
+          setDisabled(false);
+        }
+      };
+    });
+
+    document.querySelectorAll('.dam-delete-folder-btn').forEach(function (btn) {
+      btn.onclick = async function () {
+        const folderPath = btn.dataset.path;
+        const folderName = folderPath.split('/').pop();
+        if (!confirm('Delete the entire "' + folderName + '" folder and all its contents?\n\nThis cannot be undone.')) return;
+        setDisabled(true);
+        try {
+          await deleteFolder(folderPath);
           await triggerRegen();
           await waitForRegenAndReload();
         } catch (e) {
