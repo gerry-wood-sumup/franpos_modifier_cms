@@ -229,13 +229,39 @@ The [Scheduled PR Merge workflow](.github/workflows/merge-schedule.yml) checks a
 
 ---
 
-## Browsing Assets
+## Browsing & Managing Assets
 
 Each media folder contains an `index.html` that lists every asset with a preview thumbnail and its direct URL. These pages are served automatically via **GitHub Pages**.
 
 Navigate the index pages by starting at the top-level folder for the media type you need (e.g., `images/modifiers/toppings/index.html`) and following the breadcrumb links.
 
 > Index pages are auto-generated — do not edit them by hand. Changes will be overwritten on the next push.
+
+### In-Page Management UI
+
+Every index page includes a built-in management bar that lets you upload, delete, and regenerate indexes directly from the browser — no git client required.
+
+**Supported actions:**
+- **Upload Files** — pick files from your computer or drag and drop them onto the page; on directory pages you can also specify a subfolder (e.g. a CID like `206100`) to create or add to a sub-folder in one step
+- **Delete** — remove an individual asset; a confirmation prompt is shown before anything is deleted
+- **Regenerate Indexes** — manually trigger an index rebuild without changing any files
+
+After any upload or delete the indexes are automatically regenerated and the page reloads once complete (typically under 60 seconds).
+
+#### Setting up a GitHub Personal Access Token (PAT)
+
+The management UI authenticates with GitHub using a fine-grained Personal Access Token. You'll need to create one once:
+
+1. Go to **GitHub → Settings → Developer Settings → Personal access tokens → Fine-grained tokens**
+2. Click **Generate new token**
+3. Give it a name (e.g. `DAM Management`) and set an expiration
+4. Under **Repository access**, select **Only select repositories** and choose this repo
+5. Under **Permissions → Repository permissions**, grant:
+   - **Contents** → Read and write
+   - **Actions** → Read and write
+6. Click **Generate token** and copy it — it won't be shown again
+
+To use it: open any DAM index page, paste the token into the **Connect** bar at the top of the page, and click **Connect**. Your session stays connected until you close the browser tab or click Disconnect. The token is stored only in your browser's session memory and is never sent anywhere except the GitHub API.
 
 ---
 
