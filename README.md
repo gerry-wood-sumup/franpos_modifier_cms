@@ -243,9 +243,10 @@ Every index page includes a built-in management bar that lets you upload, delete
 
 **Supported actions:**
 
-- **Upload Files** — pick files from your computer or drag and drop them onto the page.
+- **Upload Files** — select files via the button or drag and drop them onto the drop zone. Files are **staged** first (nothing is uploaded yet); the drop zone confirms what's queued and the button label updates to **Upload N files**. Fill in any subfolder before clicking to confirm.
   - On **asset pages** (e.g. `kiosk-carousel/live/global/`), files are added directly to the current folder.
   - On **directory pages** (e.g. `kiosk-carousel/live/`), an optional **Subfolder** field lets you type a CID (e.g. `206100`) to upload files directly into a new or existing CID folder — no need to create the folder separately first.
+  - Click **✕ clear** in the drop zone to de-stage files without uploading.
 - **Delete File** — removes an individual asset from the current folder; a confirmation prompt is shown before anything is deleted.
 - **Delete Folder** — removes an entire CID folder and all its contents in one step; available on directory pages next to each deletable folder row.
 - **Regenerate Indexes** — manually triggers an index rebuild without changing any files; useful if the indexes ever appear stale.
