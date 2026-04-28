@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>staging — DAM</title>
+  <title>25873 — DAM</title>
   <style>
     body { font-family: sans-serif; max-width: 960px; margin: 2rem auto; padding: 0 1rem; color: #222; }
     h1 { font-size: 1.4rem; margin-bottom: 0.25rem; text-transform: capitalize; }
@@ -42,39 +42,63 @@
 <body>
   <div id="auth-bar"></div>
   <div id="toast-container"></div>
-  <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="../index.html">kiosk-carousel</a> / staging</div>
-  <h1>staging</h1>
+  <div class="breadcrumb"><a href="../../../index.html">Home</a> / <a href="../../index.html">kiosk-carousel</a> / <a href="../index.html">staging</a> / 25873</div>
+  <h1>25873</h1>
+  <p class="count">4 images</p>
   <div class="toolbar mgmt" style="display:none">
     <button class="btn btn-primary" id="dam-upload-btn">⬆ Upload Files</button>
     <input type="file" id="dam-file-input" multiple style="display:none">
-    <span class="subfolder-wrap">
-      into subfolder: <input type="text" id="dam-subfolder" placeholder="e.g. 206100 (optional)">
-    </span>
   </div>
-  <div class="drop-zone mgmt" id="dam-drop-zone" style="display:none">Drop files here to upload (into subfolder if specified above), or click to browse</div>
+  <div class="drop-zone mgmt" id="dam-drop-zone" style="display:none">Drop image files here, or click to browse</div>
   <table>
     <thead>
       <tr>
-        <th>Folder</th>
-        <th>Description</th>
+        <th>Preview</th>
+        <th>File Name</th>
+        <th>Path</th>
+        <th class="mgmt" style="display:none">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="folder"><a href="global/index.html">global</a></td>
-        <td></td>
+        <td><img class="thumb" src="qa-0.png" alt="qa-0"></td>
+        <td><a href="qa-0.png">qa-0.png</a></td>
+        <td>kiosk-carousel/staging/25873/qa-0.png</td>
+        <td class="mgmt" style="display:none">
+          <button class="btn btn-danger dam-delete-btn" data-path="kiosk-carousel/staging/25873/qa-0.png">Delete</button>
+        </td>
       </tr>
       <tr>
-        <td class="folder"><a href="25873/index.html">25873</a></td>
-        <td></td>
+        <td><img class="thumb" src="qa-1.png" alt="qa-1"></td>
+        <td><a href="qa-1.png">qa-1.png</a></td>
+        <td>kiosk-carousel/staging/25873/qa-1.png</td>
+        <td class="mgmt" style="display:none">
+          <button class="btn btn-danger dam-delete-btn" data-path="kiosk-carousel/staging/25873/qa-1.png">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td><img class="thumb" src="qa-2.png" alt="qa-2"></td>
+        <td><a href="qa-2.png">qa-2.png</a></td>
+        <td>kiosk-carousel/staging/25873/qa-2.png</td>
+        <td class="mgmt" style="display:none">
+          <button class="btn btn-danger dam-delete-btn" data-path="kiosk-carousel/staging/25873/qa-2.png">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td><img class="thumb" src="qa-3.png" alt="qa-3"></td>
+        <td><a href="qa-3.png">qa-3.png</a></td>
+        <td>kiosk-carousel/staging/25873/qa-3.png</td>
+        <td class="mgmt" style="display:none">
+          <button class="btn btn-danger dam-delete-btn" data-path="kiosk-carousel/staging/25873/qa-3.png">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
   <script>
     var DAM_OWNER  = 'gerry-wood-sumup';
     var DAM_REPO   = 'franpos_auxiliary_dam';
-    var DAM_PATH   = 'kiosk-carousel/staging';
-    var DAM_IS_DIR = true;
+    var DAM_PATH   = 'kiosk-carousel/staging/25873';
+    var DAM_IS_DIR = false;
   </script>
 <script>
 (function () {
