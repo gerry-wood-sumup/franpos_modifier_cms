@@ -1,0 +1,10 @@
+{
+  "folder": "global",
+  "count": 4,
+  "images": [
+    { "name": "01 - XLDrinksTVDisplays1080x1920.jpg", "url": "01%20-%20XLDrinksTVDisplays1080x1920.jpg" },
+    { "name": "02 - LTO Soups - 1080x1920.png", "url": "02%20-%20LTO%20Soups%20-%201080x1920.png" },
+    { "name": "BubbleTeaday.png", "url": "BubbleTeaday.png" },
+    { "name": "Levitea.png", "url": "Levitea.png" }
+  ]
+}
