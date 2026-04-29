@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>live — DAM</title>
+  <title>202654 — DAM</title>
   <style>
     body { font-family: sans-serif; max-width: 960px; margin: 2rem auto; padding: 0 1rem; color: #222; }
     h1 { font-size: 1.4rem; margin-bottom: 0.25rem; text-transform: capitalize; }
@@ -42,35 +42,30 @@
 <body>
   <div id="auth-bar"></div>
   <div id="toast-container"></div>
-  <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="../index.html">kiosk-carousel</a> / live</div>
-  <h1>live</h1>
+  <div class="breadcrumb"><a href="../../../index.html">Home</a> / <a href="../../index.html">kiosk-carousel</a> / <a href="../index.html">live</a> / 202654</div>
+  <h1>202654</h1>
+  <p class="count">1 image</p>
   <div class="toolbar mgmt" style="display:none">
     <button class="btn btn-primary" id="dam-upload-btn">⬆ Upload Files</button>
     <input type="file" id="dam-file-input" multiple style="display:none">
-    <span class="subfolder-wrap">
-      into subfolder: <input type="text" id="dam-subfolder" placeholder="e.g. 206100 (optional)">
-    </span>
   </div>
-  <div class="drop-zone mgmt" id="dam-drop-zone" style="display:none">Drop files here to upload (into subfolder if specified above), or click to browse</div>
+  <div class="drop-zone mgmt" id="dam-drop-zone" style="display:none">Drop image files here, or click to browse</div>
   <table>
     <thead>
       <tr>
-        <th>Folder</th>
-        <th>Description</th>
+        <th>Preview</th>
+        <th>File Name</th>
+        <th>Path</th>
         <th class="mgmt" style="display:none">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="folder"><a href="global/index.html">global</a></td>
-        <td></td>
-        <td class="mgmt" style="display:none"></td>
-      </tr>
-      <tr>
-        <td class="folder"><a href="202654/index.html">202654</a></td>
-        <td></td>
+        <td><img class="thumb" src="kling_20260422_%E4%BD%9C%E5%93%81_A_Gong_Cha_3078_0.gif" alt="kling_20260422_作品_A_Gong_Cha_3078_0"></td>
+        <td><a href="kling_20260422_%E4%BD%9C%E5%93%81_A_Gong_Cha_3078_0.gif">kling_20260422_作品_A_Gong_Cha_3078_0.gif</a></td>
+        <td>kiosk-carousel/live/202654/kling_20260422_作品_A_Gong_Cha_3078_0.gif</td>
         <td class="mgmt" style="display:none">
-          <button class="btn btn-danger dam-delete-folder-btn" data-path="kiosk-carousel/live/202654">Delete</button>
+          <button class="btn btn-danger dam-delete-btn" data-path="kiosk-carousel/live/202654/kling_20260422_作品_A_Gong_Cha_3078_0.gif">Delete</button>
         </td>
       </tr>
     </tbody>
@@ -78,8 +73,8 @@
   <script>
     var DAM_OWNER  = 'gerry-wood-sumup';
     var DAM_REPO   = 'franpos_auxiliary_dam';
-    var DAM_PATH   = 'kiosk-carousel/live';
-    var DAM_IS_DIR = true;
+    var DAM_PATH   = 'kiosk-carousel/live/202654';
+    var DAM_IS_DIR = false;
   </script>
 <script>
 (function () {
