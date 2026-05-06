@@ -217,6 +217,8 @@ Supported timezones: `EST`, `EDT`, `CST`, `CDT`, `MST`, `MDT`, `PST`, `PDT`, `UT
 
 The [Scheduled PR Merge workflow](.github/workflows/merge-schedule.yml) checks all open PRs every 15 minutes. When your scheduled time arrives, it will automatically merge the PR into `main`, triggering the usual index regeneration and deploy pipeline. A comment will be posted on the PR confirming the merge.
 
+> **Note:** Scheduled merges are only honoured for PRs opened by repository collaborators. PRs from forks or external contributors with a `/schedule` command will be silently skipped.
+
 **To cancel:** Simply close the PR, or edit the description to remove the `/schedule` line before the time is reached.
 
 ---
