@@ -1,7 +1,8 @@
 {
   "folder": "global",
-  "count": 3,
+  "count": 4,
   "images": [
+    { "name": "00_Anniversary_Birthday.png", "url": "00_Anniversary_Birthday.png" },
     { "name": "01_Nothing_Basic_Pumpkin_Global.png", "url": "01_Nothing_Basic_Pumpkin_Global.png" },
     { "name": "02_Bobacinno.png", "url": "02_Bobacinno.png" },
     { "name": "03_Bobaccino_Felix.png", "url": "03_Bobaccino_Felix.png" }
